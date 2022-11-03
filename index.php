@@ -70,7 +70,7 @@
             Assignments
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color:rgb(41, 41, 41);" >
-            <li><b><a  style="color: red;" class="dropdown-item" href="#">Week1</a></b></li>
+            <li><b><a  style="color: red;" class="dropdown-item" href="Week1\Homework\index.php">Week1</a></b></li>
             <li><b><a  style="color: red;" class="dropdown-item" href="#">Week2</a></b></li>
             <li><b><a  style="color: red;" class="dropdown-item" href="#">Week3</a></b></li>
             <li><b><a  style="color: red;" class="dropdown-item" href="#">Week4</a></b></li>
@@ -104,6 +104,16 @@
 
 
 <h1>Farid Hasanov</h1>
+
+
+  <!-- Source: (https://github.com/tmhvrml/se266-example-code/blob/main/class_web_site/include/footer.php)  Tims Repo-->
+  <hr />          
+    <?php       
+        $file = basename($_SERVER['PHP_SELF']);
+        $mod_date=date("F d Y h:i:s A", filemtime($file));
+        echo "File last updated $mod_date ";
+        //date.timezone = "Europe/Athens"
+    ?>
 
 </body>
 </html>
