@@ -17,27 +17,89 @@
                 // Title, Due Date, Assigned To, Completed/Not Completed
                 $task = 
                 [
-                   "Title: " => "Complete Assignment",
+                   "title" => "Complete Assignment",
 
-                   "Due: " => "11/01/2022",
+                   "due" => "11/01/2022",
 
-                   "Assigned to: " => "Farid",
+                   "assigned_to" => "Farid",
 
-                   "Completed: " => false
+                   "completed" => false,
+
+                   "today" => True
+                   
                 ];
                 
+                // Checking the task (troublesooting)
                 var_dump($task);
             
             ?>
     
-       
+            <!-- Creating Heading -->
+            <h1> Task For The Day </h1>
+            
             <ul>
-                <!-- Looping Throug array and setting them --> 
-                <?php foreach ($task as $key => $tasks) :?>
-                    <li><strong><?= $key; ?></strong><?= $tasks; ?></li>
-                <?php endforeach; ?>
-  
-            </ul>
 
+              
+                    <!-- Creating List with it's own settings -->
+
+                    <li>
+                    
+                        <strong>Title: </strong><?= $task["title"]; ?>
+                    
+                    </li>
+
+                    <li>
+                    
+                        <strong>Due Date: </strong><?= $task["due"]; ?>
+                    
+                    </li>
+
+                    <li>
+                    
+                        <strong>Assigned to: </strong><?= $task["assigned_to"]; ?>
+                    
+                    </li>
+
+                    <li>
+                    
+                        <strong>Completed: </strong><?= $task["completed"] ? 'Complete' : 'Incomplete'; ?>
+                    
+                            <?php
+
+
+                                // When -- true then it will displays check box
+                                if ($task['completed'])
+                                {   
+                                    echo "&#9989;";
+                                } 
+                                // When -- true then it will displays cross box
+                                else
+                                {
+                                    echo "&#10062;";
+                                }
+                            ?>
+                   
+                    </li>
+
+                    <li>
+
+                    
+                        <strong>Today: </strong><?= $task["today"] ? 'Complete' : 'Incomplete'; ?>
+
+                        <?php
+
+                            if ($task['today'])
+                            {
+                                echo "&#9989;";
+                            } 
+                            else
+                            {
+                                echo "&#10062;";
+                            }
+                        ?>
+                    </li>
+
+                
+            </ul>
     </body>
 </html>
