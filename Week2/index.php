@@ -47,7 +47,7 @@
             $lname = filter_input(INPUT_POST,"lname");
             if ($lname == "")
             {
-                $feedback .=  "<p style='color:red;' > Last Name Field Empty*</p>";
+                $feedback .=  "<p style='color:red;'> Last Name Field Empty*</p>";
                 
             }
             else
@@ -63,30 +63,30 @@
             }
             else 
             {
-                $feedback .= "<p style='color:red;' > No, Happy  </p>";
+                $feedback .= "<p style='color:red;' > No, Happy* </p>";
             }
        
             // Birth Date
-            function age ($bdate) {
-                $date = new DateTime($bdate);
-                $now = new DateTime();
-                $interval = $now->diff($date);
-                return $interval->y;
+            $now = time();
+
+            if (strtotime($_POST['bd']) > $now)
+            {
+                $feedback .= "<p style='color:red;' > Wrong Date of Birth*  </p>";
             }
-             
-             function isDate($dt) {
-                $date_arr  = explode('-', $dob);
-                return checkdate($date_arr[1], $date_arr[2], $date_arr[0]);
+            else
+            {
+                $bd = ($_POST['bd']);
+
+                $feedback .= "<p> $bd </p>";
             }
-             
-             
+            
             // Height
         
                 // Feet
                 $feet = filter_input(INPUT_POST, 'ft', FILTER_VALIDATE_FLOAT);
                 if ($feet < 0 || $feet > 9 )
                 {
-                    $feedback .=  "<p style='color:red;' > Feet should be possitive and less than 9* | ";
+                    $feedback .=  "<p style='color:red;' > Feet should be possitive and less than 9* </p> ";
                                 
                 }
                 else
@@ -98,7 +98,7 @@
                 $inch = filter_input(INPUT_POST, 'inc', FILTER_VALIDATE_FLOAT);
                 if ($inch < 0 || $inch > 12 )
                 {
-                    $feedback .=  " | style='color:red;' > Inch should be possitive and less than 12* </p>";
+                    $feedback .=  "<p style='color:red;' > Inch should be possitive and less than 12* </p>";
                                 
                 }
                 else
@@ -130,9 +130,17 @@
                                 // BMI: 81.64 / (1.8542 * 1.8542) = 23.7
 
 
-        } 
+            // Calculations
 
-        echo $feedback;
+            function bmi ($feet, $inch, $weight) {
+                // you will need to write
+
+                return $weight/pow(($feet * 12 + $inch),2) * 703;
+            }
+             
+            
+
+        } 
 
     ?>
     
@@ -142,39 +150,73 @@
             <h1 style="color: red; text-align: center; font-size: 90px; font-family: fantasy; ">BMI Calculator</h1>
             <div>
                 <label>First Name:</label>
-                <input type="text" name="fname" />
+                <input type="text" name="fname" value=<?php echo $fname?> />
             </div>
             <hr>
             <div>    
                 <label>Last Name:</label>
-                <input type="text" name="lname" />
+                <input type="text" name="lname" value=<?php echo $lname?> />
             </div>
             <hr>
             <div>    
                 <label>Married:</label>
-                Yes<input type="radio" name="married" value="yes" />
-                No<input type="radio" name="married" value="no" />
+                Yes<input type="radio" name="married" value="yes"  <?php if($married == 1) echo 'checked="checked" '?>/>
+                No<input type="radio" name="married" value="no"  <?php if($married == 0) echo 'checked="checked" '?>/> 
+            
             </div>
             <hr>
             <div>   
                 <label>Birth Date:</label>
-                <input type="date" name="bd" controldate/>
+                <input type="date" name="bd" controldate value="<?php echo $bd?>" />
             </div> 
             <hr>
             <div>
                 <label>Height:</label>
-                Feet:<input type="number" name="ft" required placeholder="0"/>
-                Inches:<input type="number" name="inc" required placeholder="0"/>
+                Feet:<input type="number" name="ft"  placeholder="0" value="<?php echo $feet?>"/>
+                Inches:<input type="number" name="inc"  placeholder="0" value="<?php echo $inch?>"/>
             </div>
             <hr>
             <div>
-                <label>Weight (pounds)::</label>
-                <input type="number" name="lb" required  placeholder="0"/>
+                <label>Weight (pounds):</label>
+                <input type="number" name="lb"   placeholder="0"  value="<?php echo $weight?>"/>
             </div>
             <hr>
             <div>   
-                <input type="submit" value="submit" name="addNumbers" style="width:55px; height: 25px; text-align: center;">
-            </div> 
+                <input type="submit" value="submit" name="addNumbers" style="width:55px; height: 25px; text-align: center; margin-bottom: 3px;">
+            </div>
+            
+            <div>
+                <?php echo $feedback ?>
+                <?php 
+
+                // BMI          Classification
+                // ---------------------------
+                // < 18.5       underweight
+                // 18.5–24.9    normal weight
+                // 25.0–29.9    overweight
+                // >= 30        obese
+                
+                
+                echo round($calc = bmi($feet, $inch, $weight),1);
+                if($calc < 18.5)
+                {
+                    echo ' | Underweight';
+                }
+                else if($calc >= 18.5 && $calc <= 24.9)
+                {
+                    echo ' | Normalweight';
+                } 
+                else if($calc >= 25.0 && $calc <= 29.9)
+                {
+                    echo ' | Overweight';
+                }
+                else
+                {
+                    echo ' | Obese';
+                }
+                
+                ?>
+            </div>
         </div>
     </form>
 
