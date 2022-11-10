@@ -1,5 +1,12 @@
 
+
 <?php
+    include_once ("./checking.php");
+    include_once ("./savings.php");
+    
+    $checking = new CheckingAccount('C123', 1000, '12-20-2019');
+    //$savings = new SavingsAccount('S123', 5000, '03-20-2020');
+    
     if (isset ($_POST['withdrawChecking'])) 
     {
         echo "I pressed the checking withdrawal button";
@@ -68,7 +75,9 @@
         <div class="wrapper">
             
             <div class="account">
-              
+                    <ul>
+                    
+                    </ul>
                     
                     <div class="accountInner">
                         <input type="text" name="checkingWithdrawAmount" value="" />
