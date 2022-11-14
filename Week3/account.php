@@ -17,9 +17,9 @@
         public function __construct ($id, $bal, $startDt) 
         {
            // write code here
-           $this->$accountId = $id;
-           $this->$balance = $bal;
-           $this->$startDate = $startDt;
+           $this->accountId = $id;
+           $this->balance = $bal;
+           $this->startDate = $startDt;
         } // end constructor
         
         public function deposit ($amount) 
