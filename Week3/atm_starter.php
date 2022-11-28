@@ -6,22 +6,39 @@
     
     $checking = new CheckingAccount('C123', 1000, '12-20-2019');
     $savings = new SavingsAccount('S123', 5000, '03-20-2020');
-    
+    if (isset($_POST["checkingAccountId"]))
+    {
+        $checking = new CheckingAccount($_POST["checkingAccountId"], $_POST["checkingBalance"], $_POST["checkingDate"]);
+    }
+    if (isset($_POST["savingsAccountId"]))
+    {
+        $savings = new SavingsAccount($_POST["savingsAccountId"], $_POST["savingsBalance"], $_POST["savingsDate"]);
+    }
     if (isset ($_POST['withdrawChecking'])) 
     {
-        echo "I pressed the checking withdrawal button";
+        $checking->withdrawal($_POST["checkingWithdrawAmount"]);
+        //echo "I pressed the checking withdrawal button";
     } 
     else if (isset ($_POST['depositChecking'])) 
     {
-        echo "I pressed the checking deposit button";
+        $checking->deposit($_POST["checkingDepositAmount"]);
+        
+        
+        //echo "I pressed the checking deposit button";
     } 
     else if (isset ($_POST['withdrawSavings'])) 
     {
-        echo "I pressed the savings withdrawal button";
+        $savings->withdrawal($_POST["savingsWithdrawAmount"]);
+        
+        
+        //echo "I pressed the savings withdrawal button";
     } 
     else if (isset ($_POST['depositSavings'])) 
     {
-        echo "I pressed the savings deposit button";
+        $savings->deposit($_POST["savingsDepositAmount"]);
+        
+        
+        //echo "I pressed the savings deposit button";
     } 
      
 ?>
@@ -66,21 +83,21 @@
        
         <input type="hidden" name="checkingAccountId" value="C123" />
         <input type="hidden" name="checkingDate" value="12-20-2019" />
-        <input type="hidden" name="checkingBalance" value="1000" />
+        <input type="hidden" name="checkingBalance" value=<?php echo $checking->getBalance()?> />
         <input type="hidden" name="savingsAccountId" value="S123" />
         <input type="hidden" name="savingsDate" value="03-20-2020" />
-        <input type="hidden" name="savingsBalance" value="5000" />
+        <input type="hidden" name="savingsBalance" value=<?php echo $savings->getBalance()?> />
         
     <h1>ATM</h1>
         <div class="wrapper">
             
             <div class="account">
                     <ul>
-                    
+                        <?php echo $checking->getAccountDetails() ?>
                     </ul>
                     
                     <div class="accountInner">
-                        <input type="text" name="checkingWithdrawAmount" value="" />
+                        <input type="text" name="checkingWithdrawAmount" value=""/>
                         <input type="submit" name="withdrawChecking" value="Withdraw" />
                     </div>
                     <div class="accountInner">
@@ -91,7 +108,10 @@
             </div>
 
             <div class="account">
-               
+                
+                    <ul>
+                        <?php echo $savings->getAccountDetails() ?>
+                    </ul>
                     
                     <div class="accountInner">
                         <input type="text" name="savingsWithdrawAmount" value="" />
