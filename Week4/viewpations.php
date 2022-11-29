@@ -1,3 +1,10 @@
+<?php
+    
+     include_once __DIR__ . '/viewControler.php';
+
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,10 +32,38 @@
         <h1>Patients</h1>
     
     
-  <a href="editPatient.php?action=add">Add Patient</a>
+  <a href="updatePation.php?action=Add">Add Patient</a>
     <table class="table table-striped">
-
-
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Birth Date</th>
+                    <th>Maried</hp>
+                </tr>
+            </thead>
+            <tbody>
+        
+            <?php foreach ($pationListing as $row): ?>
+                <tr>
+                    <td>
+                        <form action="viewPation.php" method="post">
+                            <input type="hidden" name="PationId" value="<?= $row['id']; ?>" />
+                            <button class="btn glyphicon glyphicon-trash" type="submit"></button>
+                            
+                            <?php echo $row['pationFirstName']; ?>
+              
+                        </form>   
+                    </td>
+                    <td><?php echo $row['pationLastName']; ?> </td>
+                    <td><?php echo $row['pationBirthDate']; ?> </td>
+                    <td><?php echo $row['pationMarried']; ?> </td>
+                
+                    <td><a href="updatePation.php?action=Update&pationId=<?= $row['id'] ?>">Update</a></td> 
+                    
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
         </table>
         
         <br />

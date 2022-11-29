@@ -1,5 +1,5 @@
 <?php
-include_once "Pation.php";
+include_once "viewpations.php";
 //*****************************************************
 //
 // This class provides a wrapper for the database 
@@ -70,7 +70,7 @@ class PationDB
         $pationTable = $this->pationData;   // Alias for database PDO
 
         // Preparing SQL query
-        $stmt = $pationTable->prepare("SELECT * FROM pations ORDER BY pationname"); 
+        $stmt = $pationTable->prepare("SELECT * FROM pations ORDER BY pationLastName"); 
         
         // Execute query and check to see if rows were returned
         if ( $stmt->execute() && $stmt->rowCount() > 0 ) 
@@ -87,18 +87,20 @@ class PationDB
     // Add a pation to database
     // INPUT: pation and divison to add
     // RETURNS: True if add is successful, false otherwise
-    public function addpation($pation, $division) 
+    public function addpation($firstname, $lastname, $birthdate, $married) 
     {
         $addSucessful = false;         // pation not added at this point
         $pationTable = $this->pationData;   // Alias for database PDO
 
         // Preparing SQL query with parameters for pation and division
-        $stmt = $pationTable->prepare("INSERT INTO pations SET pationName = :pationParam, division = :divisionParam");
+        $stmt = $pationTable->prepare("INSERT INTO pations SET pationFirstName = :fnParam, pationLastName = :lnParam, pationMarried = :bdParam, pationBirthDate = :mdParam");
 
         // Bind query parameters to method parameter values
         $boundParams = array(
-            ":pationParam" => $pation,
-            ":divisionParam" => $division
+            ":fnParam" => $firstname,
+            ":lnParam" => $lastname,
+            ":bdParam" => $birthdate,
+            ":mdParam" => $married,
         );       
         
          // Execute query and check to see if rows were returned 
@@ -121,7 +123,7 @@ class PationDB
         $pationTable = $this->pationData;   // Alias for database PDO
 
         // Preparing SQL query with parameters for pation and division
-        $stmt = $pationTable->prepare("INSERT INTO pations SET pationName = :pationParam, division = :divisionParam");
+        $stmt = $pationTable->prepare("INSERT INTO pations SET  pationFirstName = :fnParam, pationLastName = :lnParam, pationMarried = :bdParam, pationBirthDate = :mdParam");
 
         // Bind query parameters to method parameter values
         $stmt->bindValue(':pationParam', $pation);
@@ -141,19 +143,21 @@ class PationDB
     //        new value for pation name
     //        new value for division
     // RETURNS: True if update is successful, false otherwise
-    public function updatepation ($id, $pation, $division) 
+    public function updatepation ($id,$fnParam, $lnParam, $bdParam, $mdParam) 
     {
         $updateSucessful = false;        // pation not updated at this point
         $pationTable = $this->pationData;   // Alias for database PDO
 
         // Preparing SQL query with parameters for pation and division
         //    id is used to ensure we update correct record
-        $stmt = $pationTable->prepare("UPDATE pations SET pationName = :pationParam, division = :divisionParam WHERE id=:idParam");
+        $stmt = $pationTable->prepare("UPDATE pations SET pationFirstName = :fnParam, pationLastName = :lnParam, pationMarried = :mdParam, pationBirthDate = :bdParam WHERE id = :idParam");
         
          // Bind query parameters to method parameter values
         $stmt->bindValue(':idParam', $id);
-        $stmt->bindValue(':pationParam', $pation);
-        $stmt->bindValue(':divisionParam', $division);
+        $stmt->bindValue(':fnParam', $fnParam);
+        $stmt->bindValue(':lnParam', $lnParam);
+        $stmt->bindValue(':bdParam', $bdParam);
+        $stmt->bindValue(':mdParam', $mdParam);
 
         // Execute query and check to see if rows were returned 
         // If so, the pation was successfully updated      
@@ -196,7 +200,7 @@ class PationDB
 
         // Preparing SQL query 
         //    id is used to ensure we delete correct record
-        $stmt = $pationTable->prepare("SELECT id, pationName, division FROM pations WHERE id=:idParam");
+        $stmt = $pationTable->prepare("SELECT * FROM pations WHERE id=:idParam");
 
          // Bind query parameter to method parameter value
          $stmt->bindValue(':idParam', $id);
