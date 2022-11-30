@@ -19,20 +19,22 @@
   if (isset($_GET['action'])) 
   {
       $action = filter_input(INPUT_GET, 'action');
-      $id = filter_input(INPUT_GET, 'pationId', );
+      $id = filter_input(INPUT_GET, 'pationId' );
       if ($action == "Update") 
       {
           $row = $pationDatabase->getPation($id);
           $fnParam = $row['pationFirstName'];
           $lnParam = $row['pationLastName'];
-          $bdParam = $row['pationMarried'];
-          $mdParam = $row['pationBirthDate'];
+          $bdParam = $row['pationBirthDate'];
+          $mdParam = $row['pationMarried'];
       } 
       //else it is Add and the user will enter pation & dvision
       else 
       {
-          $pationName = "";
-          $division = "";
+        $fnParam = '';
+        $lnParam = '';
+        $bdParam = (new DateTime('now'))->format("m/d/y)");
+        $mdParam = 0;
       }
   } // end if GET
 
@@ -48,8 +50,11 @@
       $lnParam = filter_input(INPUT_POST, 'lnParam');  
 
       $bdParam = filter_input(INPUT_POST, 'bdParam');
-     
-      $mdParam = filter_input(INPUT_POST, 'mdParam');
+      $mdParam = 0;
+      if (isset($_POST['mdParam']))
+      {
+        $mdParam = 1;
+      }
       
       
     

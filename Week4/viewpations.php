@@ -47,8 +47,8 @@
             <?php foreach ($pationListing as $row): ?>
                 <tr>
                     <td>
-                        <form action="viewPation.php" method="post">
-                            <input type="hidden" name="PationId" value="<?= $row['id']; ?>" />
+                        <form action="viewpations.php" method="post">
+                            <input type="hidden" name="pationId" value="<?= $row['id']; ?>" />
                             <button class="btn glyphicon glyphicon-trash" type="submit"></button>
                             
                             <?php echo $row['pationFirstName']; ?>
