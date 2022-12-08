@@ -27,28 +27,32 @@
    <div class="form-group">
      <label class="control-label col-sm-2" for="pation name">First Name:</label>
      <div class="col-sm-10">
-       <input type="text" class="form-control" id="fnParam" placeholder="Enter pation name" name="pation" value="<?= $fnParam; ?>">
+       <input type="text" class="form-control" id="fnParam" placeholder="Enter Your Farid Name" name="fnParam" value="<?= $fnParam; ?>">
      </div>
    </div>
 
    <div class="form-group">
      <label class="control-label col-sm-2" for="pwd">Last Name:</label>
      <div class="col-sm-10">          
-       <input type="text" class="form-control" id="lnParam" placeholder="Enter division" name="division" value="<?= $lnParam; ?>">
+       <input type="text" class="form-control" id="lnParam" placeholder="Enter Your Last Name" name="lnParam" value="<?= $lnParam; ?>">
      </div>
    </div>
    
    <div class="form-group">
      <label class="control-label col-sm-2" for="pwd">Birthdate:</label>
      <div class="col-sm-10">          
-       <input type="date" class="form-control" id="bdParam" placeholder="Enter division" name="division" value="<?= $bdParam; ?>">
+       <input type="date" class="form-control" id="bdParam" placeholder="Enter Your Birthdate" name="bdParam" value="<?php echo date("Y-m-d", strtotime($bdParam));?>">
      </div>
    </div>
-
    <div class="form-group">
      <label class="control-label col-sm-2" for="pwd">Married:</label>
      <div class="col-sm-10">          
-       <input type="checkbox" class="form-control" id="mdParam" placeholder="Enter division" name="division" value="<?= $mdParam; ?>">
+       <input type="checkbox" class="form-control" id="mdParam" placeholder="Are you Married or Happy ?" name="mdParam" 
+       <?php 
+        if ($mdParam == 1)
+        {
+          echo "checked = 'checked' ";
+        }?>>
      </div>
    </div>
 
