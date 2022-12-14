@@ -11,7 +11,7 @@
     include_once __DIR__ . '/../models/PationsDBSearcher.php';
 
     // Set up configuration file and create database
-    $configFile = __DIR__ . '/../models/dbconfig.ini';
+    $configFile = __DIR__ . '/dbconfig.ini';
     try 
     {
         $pationDatabase = new PationDBSearcher($configFile);
@@ -26,10 +26,10 @@
     // If POST & SEARCH, only fetch the specified pations       
     if (isset($_POST["Search"]))
     {
-        $fname = $_POST['fname'];
-        $lname = $_POST['lname'];
+        $fname = $_POST['fnSearch'];
+        $lname = $_POST['lnSearch'];
         $married = 0;
-        if (isset($_POST[`married`]))
+        if (isset($_POST[`mdSearch`]))
         {
             $married = 1;
         }
@@ -39,7 +39,7 @@
     elseif (isset($_POST["deletePation"]))
     {
         $id = filter_input(INPUT_POST, 'pationId');
-        $pationDatabase->deletePation($id);
+        $pationDatabase->deletepation($id);
         $pationListing = $pationDatabase->getPations();
     }
 

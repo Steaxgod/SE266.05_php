@@ -2,6 +2,7 @@
  
  // This code runs everything the page loads
     include_once __DIR__ . '/controllers/updateController.php';
+    
  
 ?>
    
@@ -27,28 +28,28 @@
    <div class="form-group">
      <label class="control-label col-sm-2" for="pation name">First Name:</label>
      <div class="col-sm-10">
-       <input type="text" class="form-control" id="fnParam" placeholder="Enter pation name" name="pation" value="<?= $fnParam; ?>">
+       <input type="text" class="form-control" id="fnParam" placeholder="Enter pation name" name="fnParam" value="<?= $fnParam; ?>">
      </div>
    </div>
 
    <div class="form-group">
      <label class="control-label col-sm-2" for="pwd">Last Name:</label>
      <div class="col-sm-10">          
-       <input type="text" class="form-control" id="lnParam" placeholder="Enter division" name="division" value="<?= $lnParam; ?>">
+       <input type="text" class="form-control" id="lnParam" placeholder="Enter division" name="lnParam" value="<?= $lnParam; ?>">
      </div>
    </div>
    
    <div class="form-group">
      <label class="control-label col-sm-2" for="pwd">Birthdate:</label>
      <div class="col-sm-10">          
-       <input type="date" class="form-control" id="bdParam" placeholder="Enter division" name="division" value="<?= $bdParam; ?>">
+       <input type="date" class="form-control" id="bdParam" placeholder="Enter division" name="bdParam" value="<?= $bdParam; ?>">
      </div>
    </div>
 
    <div class="form-group">
      <label class="control-label col-sm-2" for="pwd">Married:</label>
      <div class="col-sm-10">          
-       <input type="checkbox" class="form-control" id="mdParam" placeholder="Enter division" name="division" value="<?= $mdParam; ?>">
+       <input type="checkbox" class="form-control" id="mdParam" placeholder="Enter division" name="mdParam" value="<?= $mdParam; ?>">
      </div>
    </div>
 
@@ -69,7 +70,7 @@
 
  </form>
  
- <div class="col-sm-offset-2 col-sm-10"><a href="./viewPations.php">View Pations</a></div>
+ <div class="col-sm-offset-2 col-sm-10"><a href="./viewpations.php">View Pations</a></div>
 </div>
 </div>
 

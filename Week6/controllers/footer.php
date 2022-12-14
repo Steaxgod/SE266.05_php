@@ -3,6 +3,6 @@
     </div>
     <hr>
     <p></p>
-    <div class="footer">&copy;2022 by [Your name here]</div>
+    <div class="footer">&copy;2022 by Farid Steaxgod</div>
 </body>
 </html>

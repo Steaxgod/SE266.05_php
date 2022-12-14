@@ -2,7 +2,12 @@
  
   // This code runs everything the page loads
   include_once __DIR__ . '/../models/pationDB.php';
-  
+  include_once __DIR__ . '/functions.php'; 
+    if (!isUserLoggedIn())
+    {
+        header ('Location: login.php');
+    }
+
   // Set up configuration file and create database
   $configFile = __DIR__ . '/dbconfig.ini';
   try 
@@ -19,7 +24,7 @@
   if (isset($_GET['action'])) 
   {
       $action = filter_input(INPUT_GET, 'action');
-      $id = filter_input(INPUT_GET, 'pationId', );
+      $id = filter_input(INPUT_GET, 'pationId' );
       if ($action == "Update") 
       {
           $row = $pationDatabase->getPation($id);
@@ -31,8 +36,10 @@
       //else it is Add and the user will enter pation & dvision
       else 
       {
-          $pationName = "";
-          $division = "";
+        $fnParam = '';
+        $lnParam = '';
+        $bdParam = (new DateTime('now'))->format("m/d/y)");
+        $mdParam = 0;
       }
   } // end if GET
 
@@ -49,29 +56,32 @@
 
       $bdParam = filter_input(INPUT_POST, 'bdParam');
      
-      $mdParam = filter_input(INPUT_POST, 'mdParam');
-      
+      $mdParam = 0;
+      if (isset($_POST['mdParam']))
+      {
+        $mdParam = 1;
+      }
       
     
 
       if ($action == "Add") 
       {
-          $result = $pationDatabase->addPation ($fnParam, $lnParam, $bdParam, $mdParam);
+          $result = $pationDatabase->addpation ($fnParam, $lnParam, $bdParam, $mdParam);
       } 
       elseif ($action == "Update") 
       {
-          $result = $pationDatabase->updatePation ($id, $fnParam, $lnParam, $bdParam, $mdParam);
+          $result = $pationDatabase->updatepation ($id, $fnParam, $lnParam, $bdParam, $mdParam);
       }
 
       // Redirect to pation listing on view.php
-      header('Location: /../viewpations.php');
+      header('Location: viewpations.php');
   } // end if POST
 
   // If it is neither POST nor GET, we go to view.php
   // This page should not be loaded directly
   else
   {
-    header('Location: /../viewpations.php');  
+    header('Location: viewpations.php');  
   }
       
 ?>

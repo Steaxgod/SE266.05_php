@@ -24,7 +24,7 @@
         $password = filter_input(INPUT_POST, 'password');
 
         // Set up configuration file and create database
-        $configFile = __DIR__ . '/../controllers/dbconfig.ini';
+        $configFile = __DIR__ . '/dbconfig.ini';
         try 
         {
             $userDatabase = new UserDB($configFile);

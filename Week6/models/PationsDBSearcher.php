@@ -60,8 +60,8 @@ class PationDBSearcher extends PationDB
             {
                 $sqlQuery .= " AND ";
             }
-            $sqlQuery .= "  pationMarried LIKE :married";
-            $binds['married'] = '%'.$married.'%';
+            $sqlQuery .= "  pationMarried = :married";
+            $binds['married'] = $married;
         }
 
         // Create query object

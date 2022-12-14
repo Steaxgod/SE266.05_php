@@ -1,5 +1,4 @@
 <?php
-include_once __DIR__ . '/../viewpations.php';
 //*****************************************************
 //
 // This class provides a wrapper for the database 
@@ -93,7 +92,7 @@ class PationDB
         $pationTable = $this->pationData;   // Alias for database PDO
 
         // Preparing SQL query with parameters for pation and division
-        $stmt = $pationTable->prepare("INSERT INTO pations SET pationFirstName = :fnParam, pationLastName = :lnParam, pationMarried = :bdParam, pationBirthDate = :mdParam");
+        $stmt = $pationTable->prepare("INSERT INTO pations SET pationFirstName = :fnParam, pationLastName = :lnParam, pationMarried = :mdParam, pationBirthDate = :bdParam");
 
         // Bind query parameters to method parameter values
         $boundParams = array(
@@ -106,32 +105,6 @@ class PationDB
          // Execute query and check to see if rows were returned 
          // If so, the pation was successfully added
         $addSucessful = ($stmt->execute($boundParams) && $stmt->rowCount() > 0);
-        
-         // Return status to client
-         return $addSucessful;
-    }
-   
-    //*****************************************************
-     //*****************************************************
-    // Add a pation to database
-    //   Uses alternative style to bind query parameters.
-    // INPUT: pation and divison to add
-    // RETURNS: True if add is successful, false otherwise
-    public function addpation2($pation, $division) 
-    {
-        $addSucessful = false;         // pation not added at this point
-        $pationTable = $this->pationData;   // Alias for database PDO
-
-        // Preparing SQL query with parameters for pation and division
-        $stmt = $pationTable->prepare("INSERT INTO pations SET  pationFirstName = :fnParam, pationLastName = :lnParam, pationMarried = :bdParam, pationBirthDate = :mdParam");
-
-        // Bind query parameters to method parameter values
-        $stmt->bindValue(':pationParam', $pation);
-        $stmt->bindValue(':divisionParam', $division);
-       
-        // Execute query and check to see if rows were returned 
-        // If so, the pation was successfully added
-         $addSucessful = ($stmt->execute() && $stmt->rowCount() > 0);
         
          // Return status to client
          return $addSucessful;

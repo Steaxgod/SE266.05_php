@@ -1,6 +1,6 @@
 <?php
     
-    include_once __DIR__ . '/controllers/viewControler.php';
+    
     include_once __DIR__ . '/controllers/listController.php';
     
 ?>
@@ -31,6 +31,34 @@
     <div class="col-sm-12">
         <h1>Patients</h1>
     
+
+    <form action="#" method="post">
+        
+        <ul>
+            
+            <li>
+                
+                First Name <input type="text" name="fnSearch">
+                <hr>
+            </li>
+            <li>
+                Last Name 
+                <input type="text" name="lnSearch">
+                <hr>
+            </li>
+            <li>
+                 Married 
+                <input type="checkbox" name="mdSearch">
+            </li>
+            <br>
+            <hr>
+        <button type="submit" name="Search" value="Search">Search</button>
+    </form>
+
+    <br>
+    <hr>
+    <br>
+
     
   <a href="updatePation.php?action=Add">Add Patient</a>
     <table class="table table-striped">
@@ -47,8 +75,9 @@
             <?php foreach ($pationListing as $row): ?>
                 <tr>
                     <td>
-                        <form action="viewPation.php" method="post">
-                            <input type="hidden" name="PationId" value="<?= $row['id']; ?>" />
+                        <form action="viewpations.php" method="post">
+                            <input type="hidden" name="pationId" value="<?= $row['id']; ?>" />
+                            <input type="hidden" name="deletePation"/>
                             <button class="btn glyphicon glyphicon-trash" type="submit"></button>
                             
                             <?php echo $row['pationFirstName']; ?>
