@@ -18,7 +18,7 @@
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
-        <span class="navbar-brand">Team Listing</span>
+        <span class="navbar-brand">Patient Listing</span>
       </div>
       <?php
         // We want to hide the Logout button if the user is not logged in

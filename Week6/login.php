@@ -3,7 +3,7 @@
 ?>
 
 <div class="container">
-    <h2>NFL Team Management</h2>
+    <h2>Week 6 | Pations</h2>
     <?php 
         if ($message)
         {   ?>
