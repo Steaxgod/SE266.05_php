@@ -7,25 +7,12 @@
 
 
     <!-- CSS Links -->
-    <link rel="stylesheet" type="text/css" href="Final\css\style.php"> <!--Default CSS-->
+    <link rel="stylesheet" type="text/css" href="css\style.css"> <!--Default CSS-->
 
 
     <title>Document</title>
 </head>
 <body class="body" id="body">
-    <style>
-        * {
-            box-sizing: border-box;
-        }
 
-        body {
-
-            background-image: url("Final/source/img/bk.png");
-            
-            background-repeat: no-repeat;
-            background-attachment: scroll;
-            background-size: 100% auto;
-        }
-    </style>
 </body>
 </html>

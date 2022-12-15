@@ -3,9 +3,9 @@
     box-sizing: border-box;
 }
 
-.body {
+body {
 
-    background-image: url("Final/source/img/bk.png");
+    background-image: url("../source/img/bk.png");
     background-color: black;
     background-repeat: no-repeat;
     background-attachment: scroll;
