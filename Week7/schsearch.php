@@ -1,5 +1,5 @@
 <?php
-    include_once __DIR__ . "/controllers/header.php";
+    ginclude_once __DIR__ . "/controllers/header.php";
 
     include_once __DIR__ . "/controllers/functions.php";
     include_once __DIR__ . "/models/Schools.php";
