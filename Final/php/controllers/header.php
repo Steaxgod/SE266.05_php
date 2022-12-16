@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    <!-- CSS Links -->
+    <link rel="stylesheet" type="text/css" href="../../css\style.css"> <!--Default CSS-->
 </head>
 
 <body>
@@ -28,7 +31,7 @@
         if (isUserLoggedIn()) 
         { ?>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="logoff.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                <li><a href="controllers/logoff.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
             </ul>
             <?php
         } 

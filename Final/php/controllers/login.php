@@ -7,6 +7,7 @@
 </head>
 <body>
 <div class="container">
+    <div class="bckg">
         <h2>Game Library</h2>
         <?php 
             if ($message)
@@ -15,7 +16,7 @@
             <?php echo $message; ?>
             </div>
             <?php } ?>
-
+    
         <div id="mainDiv">
             <form method="post" action="login.php">
             
@@ -34,7 +35,7 @@
                     <div class="col1">&nbsp;</div>
                     <div class="col2"><input type="submit" name="login" value="Login" class="btn btn-warning"></div> 
                 </div>
-                
+        </div>    
             </form>
             
         </div>

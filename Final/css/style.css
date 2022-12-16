@@ -8,6 +8,10 @@ body {
     background-image: url("../source/img/bk.png");
     background-color: black;
     background-repeat: no-repeat;
-    background-attachment: scroll;
+    background-attachment: fixed;
     background-size: 100% auto;
+}
+
+.bckg {
+    background-color: gray;
 }
