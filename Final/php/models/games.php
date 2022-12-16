@@ -3,13 +3,13 @@
 //*****************************************************
 //
 // This class provides a wrapper for the database 
-// All methods work on the schools table
+// All methods work on the games table
 
-class Schools
+class Games
 {
 
     // This data field represents the database
-    private $schoolData;
+    private $gameData;
  
     // Maximum number of records to insert into database for testing
     const MAX_INSERT_ROWS = 1000;
@@ -30,20 +30,20 @@ class Schools
         if ($ini = parse_ini_file($configfile))
         {
             // Create PHP Database Object
-            $schoolPDO = new PDO( "mysql:host=" . $ini['servername'] . 
+            $gamePDO = new PDO( "mysql:host=" . $ini['servername'] . 
                                 ";port=" . $ini['port'] . 
                                 ";dbname=" . $ini['dbname'], 
                                 $ini['username'], 
                                 $ini['password']);
 
             // Don't emulate (pre-compile) prepare statements
-            $schoolPDO->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+            $gamePDO->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
             // Throw exceptions if there is a database error
-            $schoolPDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $gamePDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             //Set our database to be the newly created PDO
-            $this->schoolData = $schoolPDO;
+            $this->gameData = $gamePDO;
         }
         else
         {
@@ -55,25 +55,25 @@ class Schools
 
 
     //*****************************************************
-    // Load schools into database table "schools" from a CSV file
-    // INPUT: Name of CSV file to load schools from
-    //       Field order: School Name, City, State Abbreviation
-    // RETURNS: True if file opened and schools inserted into table
+    // Load games into database table "games" from a CSV file
+    // INPUT: Name of CSV file to load games from
+    //       Field order: game Name, City, State Abbreviation
+    // RETURNS: True if file opened and games inserted into table
     //               False otherwise
-    public function insertSchoolsFromFile($fileName) 
+    public function insertGamesFromFile($fileName) 
     {
         $insertSucessful = false;           // file records are not added at this point
-        $schoolTable = $this->schoolData;   // Alias for database PDO
-        $schoolCounter = 0;                 // Counter for rows read from file
+        $gameTable = $this->gameData;   // Alias for database PDO
+        $gameCounter = 0;                 // Counter for rows read from file
        
         // We only proceed if the file exists
         if (file_exists($fileName))
         {   
             // Clear current records in table so there are no duplicates
-            $this->deleteAllSchools();
+            $this->deleteAllGames();
 
             // Open file 
-            $schoolFileRef = fopen($fileName, 'rb');
+            $gameFileRef = fopen($fileName, 'rb');
 
             $csvAsArray = array_map('str_getcsv', file($fileName));
             $keys = array_shift($csvAsArray);
@@ -90,21 +90,21 @@ class Schools
                 $Platform = str_replace("'", "''", htmlspecialchars($row[$keys[3]]));
                 $Rel = str_replace("'", "''", htmlspecialchars($row[$keys[4]]));
 
-                $schoolToInsert = "('" . $Title . "' , '" . $Genres . "' , '" . $Company. "', '" . $Platform . "' , '" . $Rel . "' )";
+                $gameToInsert = "('" . $Title . "' , '" . $Genres . "' , '" . $Company. "', '" . $Platform . "' , '" . $Rel . "' )";
                 
                 // This adds the first MAX_INSERT_ROWS rows into the database.
-                if ($schoolCounter++ < self::MAX_INSERT_ROWS != 0) 
+                if ($gameCounter++ < self::MAX_INSERT_ROWS != 0) 
                 {
-                    // Add the school to the database
-                    $insertSucessful = $schoolTable->query("INSERT INTO games (Title, Genres,Company,Platform,Rel) VALUES ". $schoolToInsert);
+                    // Add the game to the database
+                    $insertSucessful = $gameTable->query("INSERT INTO games (Title, Genres,Company,Platform,Rel) VALUES ". $gameToInsert);
                 }
             }
             // All done, for security reasons, close and delete the CSV file
-           fclose($schoolFileRef);
+           fclose($gameFileRef);
            unlink($fileName);
         }
         return $insertSucessful;
-      } // end insertSchools from File 
+      } // end insertgames from File 
 
       // CODE HELPED FROM RYAN PLANTE.
    
@@ -119,16 +119,16 @@ class Schools
     //*****************************************************
     // Delete all teams from table
     // RETURNS: True if delete is successful, false otherwise
-    public function deleteAllSchools() 
+    public function deleteAllGames() 
     {
             $deleteSucessful = false;           // Team not updated at this point
-            $schoolTable = $this->schoolData;   // Alias for database PDO
+            $gameTable = $this->gameData;   // Alias for database PDO
 
             // Preparing SQL query    
-            $stmt = $schoolTable->query("DELETE FROM games;");
+            $stmt = $gameTable->query("DELETE FROM games;");
 
             // Execute query and check to see if rows were returned 
-            // If so, the schools were successfully deleted      
+            // If so, the games were successfully deleted      
             $deleteSucessful = ($stmt->execute() && $stmt->rowCount() > 0);
 
             // Return status to client           
@@ -136,40 +136,40 @@ class Schools
     }
    
     //*****************************************************
-    // Get a count of schools int he database
-    // RETURNS: how many schools were uploaded were uploaded to DB
-   public function getSchoolCount() 
+    // Get a count of games int he database
+    // RETURNS: how many games were uploaded were uploaded to DB
+   public function getGameCount() 
    {
-        $schoolTable = $this->schoolData;   // Alias for database PDO
+        $gameTable = $this->gameData;   // Alias for database PDO
 
         // Build SQL query, notice we alias the count result so we can access it
-        $stmt = $schoolTable->query("SELECT COUNT(*) AS schoolCount FROM games");
+        $stmt = $gameTable->query("SELECT COUNT(*) AS gameCount FROM games");
 
         // Grab the results into an associative array
         $results = $stmt->fetch(PDO::FETCH_ASSOC);   
         
-        // return the count of schools in DB
-        return $results['schoolCount'];
-   } // end getSchoolCount
+        // return the count of games in DB
+        return $results['gameCount'];
+   } // end getgameCount
 
 
      //*****************************************************
-    // Allows user to search for either a school name, city, state or any combination
-    // INPUT: school name, host city and state to search for
-    // RETURNS: table of records of schools matching the criteria
-   public function getSelectedSchools($name, $city, $state) 
+    // Allows user to search for either a game name, city, state or any combination
+    // INPUT: game name, host city and state to search for
+    // RETURNS: table of records of games matching the criteria
+   public function getSelectedGames($title, $genres,$platform,$rel) 
    {
        $results = array();                  // Empty results table 
        $binds = array();                    // Empty bind array
        $isFirstClause = true;               // Next WHERE clause is first
-       $schoolTable = $this->schoolData;   // Alias for database PDO
+       $gameTable = $this->gameData;   // Alias for database PDO
 
-       // Here is the base SQL statement to select all schools
-       $sql = "SELECT id,Title,Genres,Company,Platform,Rel FROM games ";
+       // Here is the base SQL statement to select all games
+       $sql = "SELECT id,title,genres,company,platform,rel FROM games ";
 
         // Now we check for any parameters and build the WHERE clause filters
-        // First, school name:
-        if (isset($name)) 
+        // First, game name:
+        if (isset($title)) 
         {
             if ($isFirstClause)
             {
@@ -180,12 +180,12 @@ class Schools
             {
                 $sql .= " AND ";
             }
-            $sql .= " Title LIKE :Title";
-            $binds['Title'] = '%'.$name.'%';
+            $sql .= " title LIKE :title";
+            $binds['title'] = '%'.$title.'%';
         }
       
         // Next, city name:
-        if (isset($city)) 
+        if (isset($genres)) 
         {
             if ($isFirstClause)
             {
@@ -196,12 +196,13 @@ class Schools
             {
                 $sql .= " AND ";
             }
-            $sql .= "  Platform LIKE :Platform";
-           $binds['Platform'] = '%'.$city.'%';
+            $sql .= "  genres LIKE :genres";
+           $binds['genres'] = '%'.$genres.'%';
        }
 
+
         // Finally, state:
-        if (isset($state)) 
+        if (isset($platform)) 
         {
             if ($isFirstClause)
             {
@@ -212,15 +213,31 @@ class Schools
             {
                 $sql .= " AND ";
             }
-           $sql .= "  genres LIKE :genres";
-           $binds['genres'] = '%'.$state.'%';
+           $sql .= "  platform LIKE :platform";
+           $binds['platform'] = '%'.$platform.'%';
        }
+
+       // Finally, state:
+       if (isset($rel)) 
+       {
+           if ($isFirstClause)
+           {
+               $sql .= " WHERE ";
+               $isFirstClause = false;
+           }
+           else
+           {
+               $sql .= " AND ";
+           }
+          $sql .= "  rel LIKE :rel";
+          $binds['rel'] = '%'.$rel.'%';
+      }
 
        // Let's sort whatever records come back
        $sql .= " ORDER BY Title";
        
        // Prepare the SQL statement object
-       $stmt = $schoolTable->prepare($sql);
+       $stmt = $gameTable->prepare($sql);
       
        // Execute the query and fetch the results into a 
        // table of associative arrays
@@ -230,6 +247,6 @@ class Schools
 
         // Return the results
         return $results;
-   }    // end getSelected Schools
+   }    // end getSelected games
 
-} // end Schools class
+} // end games class

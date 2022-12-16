@@ -11,7 +11,7 @@ class UserDB
     private $userData;
 
     // Used to salt user password
-    const PASSWORD_SALT = "school-salt";
+    const PASSWORD_SALT = "game-salt";
 
     //*****************************************************
     // Users class constructor:

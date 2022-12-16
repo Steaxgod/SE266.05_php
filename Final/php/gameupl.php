@@ -13,7 +13,7 @@
     $configfile = __DIR__ . "/models/dbconfig.ini";
     try 
     {
-        $schoolDatabase = new Schools($configfile);
+        $gamesDatabase = new Games($configfile);
     } 
     catch ( Exception $error ) 
     {
@@ -21,8 +21,8 @@
     } 
      if (isset ($_FILES['fileToUpload'])) 
      {
-        $schoolDatabase->deleteAllSchools();
-         if ($schoolDatabase->insertSchoolsFromFile($_FILES['fileToUpload']['tmp_name']))
+        $gamesDatabase->deleteAllGames();
+         if ($gamesDatabase->insertGamesFromFile($_FILES['fileToUpload']['tmp_name']))
          {
              header('Location: gamesearch.php');
          }
@@ -35,7 +35,7 @@
      include_once __DIR__ . "/controllers/header.php"; 
 
 ?>  
-    <h2>Upload File</h2>
+    <h2>Upload Game-Lib File</h2>
     <p>
         Please specify a file to upload and then be patient as the upload may take a while to process.
     </p>
@@ -46,6 +46,28 @@
         <input type="submit" value="Upload">
 
     </form>    
+
+
+    <hr>
+
+
+    
+    <h2>Upload Customers File</h2>
+    <p>
+        Please specify a file to upload and then be patient as the upload may take a while to process.
+    </p>
+
+    <form action="customers.php" method="post" enctype="multipart/form-data">
+
+        <input type="file" name="fileToUpload">
+        <input type="submit" value="Upload">
+
+    </form>   
+
+
+
+
+
 
 <?php
     include_once __DIR__ . "/controllers/footer.php";
