@@ -1,0 +1,13 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+
+    background-image: url("../source/img/bk.png");
+    background-color: black;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: 100% auto;
+}
